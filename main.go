@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	printer = message.NewPrinter(language.English)
+	printer = message.NewPrinter(language.Czech)
 )
 
 func panic_(err error) {
