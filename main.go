@@ -43,9 +43,7 @@ func StartMeasuringGCs() {
 						m1.HeapAlloc,
 					),
 				)...,
-			),
-				0644,
-			)
+			), 0644)
 			panic_(err)
 			time.Sleep(time.Second)
 		}
