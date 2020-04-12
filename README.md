@@ -6,11 +6,11 @@ Tiny utility to measure GC latency in Go programs
 package main
 
 import (
-   "github.com/krischerven/measure-gc"
+	"github.com/krischerven/measure-gc"
 )
 
 func main() {
-   measuregc.StartMeasuringGCs()
-   select{}
+	measuregc.StartMeasuringGCs()
+	select {}
 }
 ```
