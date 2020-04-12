@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	printer = message.NewPrinter(language.Czech)
+	printer = message.NewPrinter(language.English)
 )
 
 func panic_(err error) {
@@ -37,7 +37,7 @@ func StartMeasuringGCs() {
 				old,
 				[]byte(
 					printer.Sprintf(
-						"GC: %.2f ms, Heap⁰: %d, Heap¹: %d",
+						"GC: %.2f ms | Heap⁰: %d | Heap¹: %d",
 						float64(time.Now().Sub(t1).Microseconds())/1000,
 						m0.HeapAlloc,
 						m1.HeapAlloc,
