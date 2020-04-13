@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	measuregc.StartMeasuringGCs()
+	measuregc.Start()
 	select {}
 }
 ```
