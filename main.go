@@ -1,11 +1,11 @@
 package measuregc
 
 import (
+	"errors"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"io/ioutil"
 	"os"
-	"errors"
 	"runtime"
 	"time"
 )
@@ -19,7 +19,6 @@ func panic_(err error) {
 		panic(err)
 	}
 }
-
 
 // measure GC latency every interval seconds
 func StartWith(interval float64) error {
@@ -63,7 +62,7 @@ func _Start(interval float64) {
 				)...,
 			), 0644)
 			panic_(err)
-			time.Sleep(time.Duration(float64(time.Second)*interval))
+			time.Sleep(time.Duration(float64(time.Second) * interval))
 		}
 	}()
 }
