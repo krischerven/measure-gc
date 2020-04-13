@@ -5,6 +5,7 @@ import (
 	"golang.org/x/text/message"
 	"io/ioutil"
 	"os"
+	"errors"
 	"runtime"
 	"time"
 )
@@ -19,7 +20,24 @@ func panic_(err error) {
 	}
 }
 
-func StartMeasuringGCs() {
+
+// measure GC latency every interval seconds
+func StartWith(interval float64) error {
+	if interval >= 0.1 {
+		_Start(interval)
+		return nil
+	} else {
+		return errors.New("Error: measuregc.Start() interval cannot be < 0.1 second.")
+	}
+}
+
+// measure GC latency every second
+func Start() {
+	_Start(1)
+}
+
+// internal, unexported function
+func _Start(interval float64) {
 	go func() {
 		_ = os.Remove("gc.out.txt")
 		for {
@@ -45,7 +63,7 @@ func StartMeasuringGCs() {
 				)...,
 			), 0644)
 			panic_(err)
-			time.Sleep(time.Second)
+			time.Sleep(time.Duration(float64(time.Second)*interval))
 		}
 	}()
 }
