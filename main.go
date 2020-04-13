@@ -27,13 +27,13 @@ func StartMeasuringGCs() {
 			runtime.ReadMemStats(&m0)
 			t1 := time.Now()
 			runtime.GC()
-			old, _ := ioutil.ReadFile("gc-out.txt")
+			old, _ := ioutil.ReadFile("gc.out.txt")
 			if old != nil {
 				old = append(old, []byte("\n")...)
 			}
 			var m1 runtime.MemStats
 			runtime.ReadMemStats(&m1)
-			err := ioutil.WriteFile("gc-out.txt", append(
+			err := ioutil.WriteFile("gc.out.txt", append(
 				old,
 				[]byte(
 					printer.Sprintf(
