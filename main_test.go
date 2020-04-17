@@ -20,11 +20,12 @@ func _ASSERT(b bool, s string) {
 func TestPanic_(t *testing.T) {
 	// test panic_ (no error)
 	panic_(nil)
-	fmt.Println("Tested panic_()")
 	// test panic (error)
 	defer func() {
 		if r := recover(); r == nil {
 			_ASSERT(false, "#1")
+		} else {
+			fmt.Println("Tested panic_()")
 		}
 	}()
 	panic_(errors.New("fakeError"))
