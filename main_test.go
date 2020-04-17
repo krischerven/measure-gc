@@ -10,13 +10,6 @@ import (
 	"time"
 )
 
-// helpers
-func _ASSERT(b bool, s string) {
-	if !b {
-		panic(fmt.Sprintf("ASSERTION FAILED! (%s)", s))
-	}
-}
-
 func TestPanic_(t *testing.T) {
 	// test panic_ (no error)
 	panic_(nil)
