@@ -26,7 +26,7 @@ func TestPanic_(t *testing.T) {
 		if r := recover(); r == nil {
 			_ASSERT(false, "#1")
 		}
-	} ()
+	}()
 	panic_(errors.New("fakeError"))
 }
 
