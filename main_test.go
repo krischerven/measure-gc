@@ -2,6 +2,7 @@ package measuregc
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -17,9 +18,16 @@ func _ASSERT(b bool, s string) {
 }
 
 func TestPanic_(t *testing.T) {
-	// test panic_
+	// test panic_ (no error)
 	panic_(nil)
 	fmt.Println("Tested panic_()")
+	// test panic (error)
+	defer func() {
+		if r := recover(); r == nil {
+			_ASSERT(false, "#1")
+		}
+	} ()
+	panic_(errors.New("fakeError"))
 }
 
 func TestStartWith(t *testing.T) {
@@ -28,7 +36,7 @@ func TestStartWith(t *testing.T) {
 	c.consume(StartWith(0.00))
 	c.consume(StartWith(0.05))
 	c.consume(StartWith(0.09))
-	_ASSERT(c.err != nil, "#1")
+	_ASSERT(c.err != nil, "#2")
 	fmt.Println("Tested StartWith(float64)")
 }
 
@@ -46,14 +54,14 @@ func TestStart(t *testing.T) {
 		// test sucessfully loaded gc.out.txt
 		_ASSERT(
 			err == nil,
-			fmt.Sprintf("%s (%v)", "#2", err),
+			fmt.Sprintf("%s (%v)", "#3", err),
 		)
 
 		// test 10 lines in gc.out.txt
 		c := bytes.Count(bytes_, []byte("\n"))
 		_ASSERT(
 			c == 2,
-			fmt.Sprintf("%s (%d)", "#3", c),
+			fmt.Sprintf("%s (%d)", "#4", c),
 		)
 
 		ch <- struct{}{}
