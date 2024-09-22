@@ -16,7 +16,7 @@ func TestPanic_(t *testing.T) {
 	// test panic (error)
 	defer func() {
 		if r := recover(); r == nil {
-			_ASSERT(false, "#1")
+			assert(false, "#1")
 		} else {
 			fmt.Println("Tested panic_()")
 		}
@@ -30,7 +30,7 @@ func TestStartWith(t *testing.T) {
 	c.consume(StartWith(0.00))
 	c.consume(StartWith(0.05))
 	c.consume(StartWith(0.09))
-	_ASSERT(c.err != nil, "#2")
+	assert(c.err != nil, "#2")
 	fmt.Println("Tested StartWith(float64)")
 }
 
@@ -46,14 +46,14 @@ func TestStart(t *testing.T) {
 		_ = os.Remove("gc.out.txt")
 
 		// test sucessfully loaded gc.out.txt
-		_ASSERT(
+		assert(
 			err == nil,
 			fmt.Sprintf("%s (%v)", "#3", err),
 		)
 
 		// test 10 lines in gc.out.txt
 		c := bytes.Count(bytes_, []byte("\n"))
-		_ASSERT(
+		assert(
 			c == 2,
 			fmt.Sprintf("%s (%d)", "#4", c),
 		)

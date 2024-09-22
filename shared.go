@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func _ASSERT(b bool, s string) {
+func assert(b bool, s string) {
 	if !b {
 		panic(fmt.Sprintf("ASSERTION FAILED! (%s)", s))
 	}

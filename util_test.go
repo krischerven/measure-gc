@@ -11,15 +11,15 @@ func TestErrorConsumer(t *testing.T) {
 	c := errorConsumer{}
 	c.panic()
 	c.consume(a)
-	_ASSERT(c.err == a, "#1")
+	assert(c.err == a, "#1")
 	c.consume(b)
-	_ASSERT(c.err == a, "#2")
+	assert(c.err == a, "#2")
 	c.clear()
-	_ASSERT(c.err == nil, "#3")
+	assert(c.err == nil, "#3")
 	c.consume(b)
 	defer func() {
 		if r := recover(); r == nil {
-			_ASSERT(false, "#4")
+			assert(false, "#4")
 		} else {
 			fmt.Println("Tested errorConsumer{}")
 		}

@@ -10,6 +10,7 @@ import (
 	"time"
 )
 
+// For commas
 var (
 	printer = message.NewPrinter(language.English)
 )
@@ -20,22 +21,6 @@ func panic_(err error) {
 	}
 }
 
-// measure GC latency every interval seconds
-func StartWith(interval float64) error {
-	if interval >= 0.1 {
-		_Start(interval)
-		return nil
-	} else {
-		return errors.New("Error: measuregc.Start() interval cannot be < 0.1 second.")
-	}
-}
-
-// measure GC latency every second
-func Start() {
-	_Start(1)
-}
-
-// internal, unexported function
 func _Start(interval float64) {
 	go func() {
 		_ = os.Remove("gc.out.txt")
@@ -50,7 +35,7 @@ func _Start(interval float64) {
 			}
 			var m1 runtime.MemStats
 			runtime.ReadMemStats(&m1)
-			err := ioutil.WriteFile("gc.out.txt", append(
+			panic_(ioutil.WriteFile("gc.out.txt", append(
 				old,
 				[]byte(
 					printer.Sprintf(
@@ -60,9 +45,23 @@ func _Start(interval float64) {
 						m1.HeapAlloc,
 					),
 				)...,
-			), 0644)
-			panic_(err)
+			), 0644))
 			time.Sleep(time.Duration(float64(time.Second) * interval))
 		}
 	}()
+}
+
+// measure GC latency every second
+func Start() {
+	_Start(1)
+}
+
+// measure GC latency every [interval] seconds
+func StartWith(interval float64) error {
+	if interval >= 0.1 {
+		_Start(interval)
+		return nil
+	} else {
+		return errors.New("Error: measuregc.Start() interval cannot be < 0.1 second.")
+	}
 }
