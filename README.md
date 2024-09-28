@@ -1,5 +1,5 @@
 # measure-gc
-Tiny utility to measure GC latency in Go programs
+A utility to measure GC latency in Go programs
 
 ## Usage
 ```go
